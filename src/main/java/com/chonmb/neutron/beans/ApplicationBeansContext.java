@@ -18,6 +18,9 @@ import java.util.stream.Collectors;
 
 import static com.chonmb.neutron.utils.ClassUtils.isInterfaceImplemented;
 
+/**
+ * 应用上下文
+ */
 public class ApplicationBeansContext implements EventBeansContext {
     private final BeansMap beansMap = new BeansMap();
     private List<BeansDefine> beansDefines;

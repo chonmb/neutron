@@ -11,6 +11,9 @@ import java.util.*;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 
+/**
+ * @ClassName: BeanDefineScanner
+ */
 public class BeanDefineScanner {
     private Map<String, Class<?>> classes = new HashMap<String, Class<?>>();
     private FilenameFilter javaClassFilter;                                    // 类文件过滤器,只扫描一级类

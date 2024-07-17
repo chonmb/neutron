@@ -4,13 +4,78 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.chonmb</groupId>
+    <groupId>io.github.chonmb</groupId>
     <artifactId>neutron</artifactId>
-    <version>1.0-SNAPSHOT</version>
-
+    <version>1.0.0</version>
+    <description>neutron is a event engine, which delivers and handles events along with paths in event graph, making
+        handle variant events easy like cooking.
+    </description>
+    <licenses>
+        <license>
+            <name>MIT</name>
+            <url>https://opensource.org/licenses/MIT</url>
+        </license>
+    </licenses>
+    <developers>
+        <developer>
+            <name>chonmb</name>
+            <email>weichonmb@foxmail.com</email>
+        </developer>
+    </developers>
+    <url>https://github.com/chonmb/neutron</url>
+    <scm>
+        <connection>scm:git:https://github.com/chonmb/neutron.git</connection>
+        <developerConnection>scm:git:https://github.com/chonmb/neutron.git</developerConnection>
+        <url>https://github.com/chonmb/neutron.git</url>
+    </scm>
     <properties>
         <maven.compiler.source>16</maven.compiler.source>
         <maven.compiler.target>16</maven.compiler.target>
     </properties>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.sonatype.central</groupId>
+                <artifactId>central-publishing-maven-plugin</artifactId>
+                <version>0.5.0</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <publishingServerId>central</publishingServerId>
+<!--                    <tokenAuth>true</tokenAuth>-->
+                    <autoPublish>true</autoPublish>
+                    <waitUntil>published</waitUntil>
+                </configuration>
+            </plugin>
+            <!-- 配置生成源码包 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>3.2.1</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <!-- 配置生成javadoc包 -->
+<!--            <plugin>-->
+<!--                <groupId>org.apache.maven.plugins</groupId>-->
+<!--                <artifactId>maven-javadoc-plugin</artifactId>-->
+<!--                <version>3.2.0</version>-->
+<!--                <executions>-->
+<!--                    <execution>-->
+<!--                        <phase>package</phase>-->
+<!--                        <goals>-->
+<!--                            <goal>jar</goal>-->
+<!--                        </goals>-->
+<!--                    </execution>-->
+<!--                </executions>-->
+<!--            </plugin>-->
+        </plugins>
+    </build>
 
 </project>
