@@ -25,7 +25,6 @@ public class SingleStartEventGraphMap implements EventGraph {
         this.nodes = nodes.stream().collect(Collectors.toMap(RequirementInfo::getName, requirementInfo -> requirementInfo));
         Set<RequirementInfo> onlyOut = nextMap.keySet().stream().filter(s -> !previewMap.containsKey(s)).map(s -> this.nodes.get(s)).collect(Collectors.toSet());
         ValidateUtil.validateCollectors(onlyOut);
-        nodes.add(start);
         nextMap.put(start.getName(), onlyOut);
         onlyOut.forEach(requirementInfo -> previewMap.put(requirementInfo.getName(), Collections.singleton(start)));
         Set<RequirementInfo> onlyIn = previewMap.keySet().stream().filter(s -> !nextMap.containsKey(s)).map(s -> this.nodes.get(s)).collect(Collectors.toSet());
