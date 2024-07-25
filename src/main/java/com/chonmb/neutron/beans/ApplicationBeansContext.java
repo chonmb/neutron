@@ -3,6 +3,7 @@ package com.chonmb.neutron.beans;
 import com.chonmb.neutron.EventEngineContext;
 import com.chonmb.neutron.bus.Bus;
 import com.chonmb.neutron.config.Configuration;
+import com.chonmb.neutron.config.GlobalEventConfiguration;
 import com.chonmb.neutron.factory.Factory;
 import com.chonmb.neutron.repository.Repository;
 import com.chonmb.neutron.requirements.RequirementInstance;
@@ -10,12 +11,11 @@ import com.chonmb.neutron.requirements.RequirementInstance;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Modifier;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
+import static com.chonmb.neutron.utils.ClassUtils.getThreadStackTraceClass;
 import static com.chonmb.neutron.utils.ClassUtils.isInterfaceImplemented;
 
 /**
@@ -24,15 +24,32 @@ import static com.chonmb.neutron.utils.ClassUtils.isInterfaceImplemented;
 public class ApplicationBeansContext implements EventBeansContext {
     private final BeansMap beansMap = new BeansMap();
     private List<BeansDefine> beansDefines;
+    private final GlobalEventConfiguration globalEventConfiguration = new GlobalEventConfiguration();
 
 
     public void scanAndLocatedBeans() {
-        this.beansDefines = scanClass("com.chonmb.neutron")
+        freshGlobalConfigurationBeforeStart();
+        this.beansDefines = scanClass()
                 .stream()
                 .filter(this::filterInstantClass)
                 .map(ClassDefine::new)
                 .collect(Collectors.toList());
         beansDefines.forEach(beansMap::put);
+    }
+
+    private void freshGlobalConfigurationBeforeStart() {
+        globalEventConfiguration.getScanPackage().addAll(getAnnotatedScanPackages());
+        putBean(globalEventConfiguration);
+    }
+
+    private Set<String> getAnnotatedScanPackages() {
+        return getThreadStackTraceClass()
+                .stream()
+                .flatMap(aClass ->
+                        Optional.ofNullable(aClass.getAnnotation(EventScanner.class))
+                                .map(eventScanner -> Stream.of(eventScanner.scanPages()))
+                                .orElse(Stream.empty())
+                ).collect(Collectors.toSet());
     }
 
     public boolean filterInstantClass(Class<?> aClass) {
@@ -49,12 +66,11 @@ public class ApplicationBeansContext implements EventBeansContext {
     /**
      * 获取指定包下的所有类
      *
-     * @param packages 包名
      * @return 类列表
      */
-    private Collection<Class<?>> scanClass(String packages) {
+    private Collection<Class<?>> scanClass() {
         BeanDefineScanner cs2 = new BeanDefineScanner();
-        cs2.scanning(packages, false);
+        globalEventConfiguration.getScanPackage().forEach(packages -> cs2.scanning(packages, false));
         return cs2.getClasses().values();
     }
 
@@ -93,7 +109,7 @@ public class ApplicationBeansContext implements EventBeansContext {
                 beansMap.put(beansDefine, instance);
                 return instance;
             } catch (InstantiationException | IllegalAccessException | InvocationTargetException e) {
-                // throw new RuntimeException(e);
+                 throw new RuntimeException(e);
             }
         }
         return null;

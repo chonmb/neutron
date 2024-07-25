@@ -1,6 +1,8 @@
 package com.chonmb.neutron.beans;
 
 import com.chonmb.neutron.utils.ClassStringUtil;
+import com.chonmb.neutron.utils.ClassUtils;
+import com.chonmb.neutron.utils.EventEngineApplicationTest;
 
 import java.io.File;
 import java.io.FilenameFilter;
@@ -74,7 +76,7 @@ public class BeanDefineScanner {
         try {
             // 得到指定路径中所有的资源文件
 
-            packPrefix = Objects.requireNonNull(Thread.currentThread().getContextClassLoader().getResource("")).getPath().replace("test-classes", "classes");
+            packPrefix = getPackagePath();
             file = new File(packPrefix + filePackPath);
 
             if (System.getProperty("file.separator").equals("\\")) {
@@ -100,6 +102,13 @@ public class BeanDefineScanner {
         }
 
         return classes.size();
+    }
+
+    private String getPackagePath() {
+        if (ClassUtils.getThreadStackTraceClass().stream().noneMatch(aClass -> aClass.isAnnotationPresent(EventEngineApplicationTest.class))) {
+            return Objects.requireNonNull(Thread.currentThread().getContextClassLoader().getResource("")).getPath();
+        }
+        return Objects.requireNonNull(Thread.currentThread().getContextClassLoader().getResource("")).getPath().replace("test-classes", "classes");
     }
 
     /**
