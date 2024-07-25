@@ -1,0 +1,84 @@
+[
+  {
+    "topic": "line",
+    "matrix": [
+      [
+        false,
+        true,
+        false
+      ],
+      [
+        false,
+        false,
+        true
+      ],
+      [
+        false,
+        false,
+        false
+      ]
+    ],
+    "nodes": [
+      {
+        "name": "222",
+        "executorName": "echo"
+      },
+      {
+        "name": "3333",
+        "executorName": "echo"
+      },
+      {
+        "name": "44444",
+        "executorName": "echo"
+      }
+    ]
+  },
+  {
+    "topic": "map2",
+    "matrix": [
+      [
+        false,
+        true,
+        false,
+        true
+      ],
+      [
+        false,
+        false,
+        true,
+        false
+      ],
+      [
+        false,
+        false,
+        false,
+        true
+      ],
+      [
+        false,
+        false,
+        false,
+        false
+      ]
+    ],
+    "nodes": [
+      {
+        "name": "222",
+        "executorName": "echo"
+      },
+      {
+        "name": "3333",
+        "executorName": "echo"
+      },
+      {
+        "name": "44444",
+        "executorName": "echo"
+      },
+      {
+        "name": "666",
+        "executorName": "echo",
+        "preNodesAllReady": ["44444","222"]
+      }
+    ]
+  }
+]
