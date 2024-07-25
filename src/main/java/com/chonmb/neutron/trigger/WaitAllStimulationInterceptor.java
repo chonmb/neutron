@@ -9,7 +9,7 @@ import java.util.Set;
 public class WaitAllStimulationInterceptor implements ValidateStimulationInterceptor {
     private final RequirementInfo to;
     private final Set<RequirementInfo> froms;
-    private final Set<Stimulation> readyCount = new HashSet<>();
+    private final Set<RequirementInfo> readyCount = new HashSet<>();
 
     public WaitAllStimulationInterceptor(RequirementInfo to, Set<RequirementInfo> froms) {
         this.to = to;
@@ -20,7 +20,7 @@ public class WaitAllStimulationInterceptor implements ValidateStimulationInterce
     public boolean validate(Stimulation stimulation) {
         if (stimulation.to().equals(to)) {
             if (froms.contains(stimulation.from())) {
-                readyCount.add(stimulation);
+                readyCount.add(stimulation.from());
                 if (readyCount.size() != froms.size()){
                     System.out.println("wait interceptor actived by stimulation: "+stimulation.content());
                 }
