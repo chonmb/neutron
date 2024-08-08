@@ -8,4 +8,6 @@ public interface EventBeansContext {
     public <T> T getBean(Class<T> tClass);
 
     public <T> List<T> getBeansImplement(Class<T> tClass);
+
+    void putBean(Object bean);
 }

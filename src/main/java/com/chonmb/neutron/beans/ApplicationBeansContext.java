@@ -127,6 +127,7 @@ public class ApplicationBeansContext implements EventBeansContext {
         beansMap.getBeansImplement(EventEngineContext.class).forEach(eventEngineContext -> eventEngineContext.setEventBeansContext(this));
     }
 
+    @Override
     public void putBean(Object bean) {
         beansMap.put(new ClassDefine<>(bean.getClass()), bean);
     }

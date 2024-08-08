@@ -12,7 +12,7 @@ public class BeansMap {
     public Object getBean(BeansDefine beansDefine) {
         return Optional.ofNullable(beansMap.get(beansDefine.getBeanClass()))
                 .map(map -> map.get(beansDefine.getBeanName()))
-                .orElseThrow(BeanNotFoundException::new);
+                .orElseThrow(()->new BeanNotFoundException(beansDefine.getClass().getName()));
     }
 
     public void put(BeansDefine beansDefine, Object o) {
