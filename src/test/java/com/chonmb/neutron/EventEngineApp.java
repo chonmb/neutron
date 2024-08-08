@@ -1,10 +1,12 @@
 package com.chonmb.neutron;
 
 import com.chonmb.neutron.event.Event;
+import com.chonmb.neutron.utils.EventEngineApplicationTest;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.concurrent.TimeUnit;
 
+@EventEngineApplicationTest
 public class EventEngineApp {
 
     public static void main(String[] args) throws InterruptedException, ClassNotFoundException, InstantiationException, IllegalAccessException, InvocationTargetException {
