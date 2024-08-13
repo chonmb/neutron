@@ -1,5 +1,6 @@
 package com.chonmb.neutron.log;
 
+import java.util.logging.ConsoleHandler;
 import java.util.logging.Handler;
 
 /**
@@ -8,17 +9,9 @@ import java.util.logging.Handler;
  * @application neutron
  * @email weichonmb@foxmail.com
  */
-public class DefaultConsoleHandler extends Handler {
-    @Override
-    public void publish(java.util.logging.LogRecord record) {
-        System.out.println(record.getLevel() +": "+ record.getMessage());
-    }
-
-    @Override
-    public void flush() {
-    }
-
-    @Override
-    public void close() throws SecurityException {
+public class DefaultConsoleHandler extends ConsoleHandler {
+    public DefaultConsoleHandler() {
+        super();
+        setFormatter(new DefaultConsoleFormatter());
     }
 }
