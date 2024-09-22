@@ -36,9 +36,11 @@ jobs:
       run: echo "$GPG_PRIVATE_KEY" | gpg --import
       
     - name: trust gpg
-      run: gpg --edit-key chonmb trust
-      5
-      y
+      run: |
+        gpg --edit-key chonmb trust
+        5
+        y
+        quit
       
     - name: show gpg
       run: gpg --list-keys
