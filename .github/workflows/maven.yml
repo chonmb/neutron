@@ -33,13 +33,17 @@ jobs:
     - name: import gpg
       env:
           GPG_PRIVATE_KEY: ${{ secrets.MAVEN_DEPLOY }}
-      run: echo "$GPG_PRIVATE_KEY" | gpg --import
-      
+      #run: echo "$GPG_PRIVATE_KEY" | gpg --import
+      uses: crazy-max/ghaction-import-gpg@v6.1.0
+      with:
+        gpg_private_key: "$GPG_PRIVATE_KEY"
+        trust_level: 5
+        
     - name: show gpg
       run: gpg --list-keys
       
-    - name: Build with Maven
-      run: mvn deploy
+    #- name: Build with Maven
+     # run: mvn deploy
 
     # Optional: Uploads the full dependency graph to GitHub to improve the quality of Dependabot alerts this repository can receive
     #- name: Update dependency graph
