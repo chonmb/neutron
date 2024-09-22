@@ -31,10 +31,10 @@ jobs:
         cache: maven
         
     - name: Import GPG key
-        uses: crazy-max/ghaction-import-gpg@v6.1.0
-        with:
-          gpg_private_key: ${{ secrets.MAVEN_DEPLOY }}
-          trust_level: 5
+      uses: crazy-max/ghaction-import-gpg@v6.1.0
+      with:
+        gpg_private_key: ${{ secrets.MAVEN_DEPLOY }}
+        trust_level: 5
       
     - name: show gpg
       run: gpg --list-keys
