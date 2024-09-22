@@ -32,9 +32,9 @@ jobs:
     - name: import gpg
       env:
           GPG_PRIVATE_KEY: ${{ secrets.MAVEN_DEPLOY }}
-      run: 
-          echo "$GPG_PRIVATE_KEY" | gpg --import
-          gpg --list-keys
+      run: echo "$GPG_PRIVATE_KEY" | gpg --import
+    - name: show gpg
+      run: gpg --list-keys
     #- name: Build with Maven
     #  run: mvn deploy
 
