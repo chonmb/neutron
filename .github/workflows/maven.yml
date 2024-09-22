@@ -35,6 +35,7 @@ jobs:
       with:
         gpg_private_key: ${{ secrets.MAVEN_DEPLOY }}
         trust_level: 5
+        git_config_global: true
       
     - name: show gpg
       run: gpg --list-keys
