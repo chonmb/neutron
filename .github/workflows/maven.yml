@@ -29,14 +29,17 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
         cache: maven
+        
     - name: import gpg
       env:
           GPG_PRIVATE_KEY: ${{ secrets.MAVEN_DEPLOY }}
       run: echo "$GPG_PRIVATE_KEY" | gpg --import
+      
     - name: show gpg
       run: gpg --list-keys
-    #- name: Build with Maven
-    #  run: mvn deploy
+      
+    - name: Build with Maven
+       run: mvn deploy
 
     # Optional: Uploads the full dependency graph to GitHub to improve the quality of Dependabot alerts this repository can receive
     #- name: Update dependency graph
