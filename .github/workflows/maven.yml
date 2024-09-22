@@ -33,12 +33,13 @@ jobs:
     - name: import gpg
       env:
           GPG_PRIVATE_KEY: ${{ secrets.MAVEN_DEPLOY }}
-      #run: echo "$GPG_PRIVATE_KEY" | gpg --import
-      uses: crazy-max/ghaction-import-gpg@v6.1.0
-      with:
-        gpg_private_key: "$GPG_PRIVATE_KEY"
-        trust_level: 5
-        
+      run: echo "$GPG_PRIVATE_KEY" | gpg --import
+      
+    - name: trust gpg
+      run: gpg --edit-key chonmb trust
+      5
+      y
+      
     - name: show gpg
       run: gpg --list-keys
       
