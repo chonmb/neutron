@@ -30,15 +30,11 @@ jobs:
         distribution: 'temurin'
         cache: maven
         
-    - name: import gpg
-      env:
-          GPG_PRIVATE_KEY: ${{ secrets.MAVEN_DEPLOY }}
-      run: |
-        echo "$GPG_PRIVATE_KEY" | gpg --import
-        gpg --edit-key chonmb trust
-        5
-        y
-        quit
+    - name: Import GPG key
+        uses: crazy-max/ghaction-import-gpg@v6.1.0
+        with:
+          gpg_private_key: ${{ secrets.MAVEN_DEPLOY }}
+          trust_level: 5
       
     - name: show gpg
       run: gpg --list-keys
