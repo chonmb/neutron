@@ -34,6 +34,7 @@ jobs:
       uses: crazy-max/ghaction-import-gpg@v6.1.0
       with:
         gpg_private_key: ${{ secrets.MAVEN_DEPLOY }}
+        passphrase: ${{ secrets.PWD }}
         trust_level: 5
         git_config_global: true
       
