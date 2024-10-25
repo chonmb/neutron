@@ -19,7 +19,9 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 /**
- * @author chonmb Email:jiangxin2@shanghai-electric.com
+ * @author chonmb
+ * @application neutron
+ * @email weichonmb@foxmail.com
  * @date 2024/7/25 8:53
  */
 
