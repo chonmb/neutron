@@ -29,3 +29,6 @@
   // create a event named `topic` and deliver it to handle
   application.deliverEvent(application.createEvent("topic"));
 ```
+
+## Contribution
+More information and features are posted on issues.
